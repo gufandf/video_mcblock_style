@@ -1,28 +1,13 @@
-
-try:
-    from PIL import Image
-    import os
-    from search import *
-    from tqdm import tqdm
-    import time
-    import subprocess
-    import cv2
-    import threading
-    import shutil
-    from pathlib import Path
-except ImportError:
-    import pip
-    pip.main(["install", "--user", "tqdm","subprocess","threading","opencv-python","shutil","pathlib","pillow"])
-    from PIL import Image
-    import os
-    from search import *
-    from tqdm import tqdm
-    import time
-    import subprocess
-    import cv2
-    import threading
-    import shutil
-    from pathlib import Path
+from PIL import Image
+import os
+from search import *
+from tqdm import tqdm
+import time
+import subprocess
+import cv2
+import threading
+import shutil
+from pathlib import Path
 
 
 def del_file(path):
