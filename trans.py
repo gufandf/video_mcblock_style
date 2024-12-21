@@ -22,6 +22,9 @@ for i in ["temp","frame","video"]:
         pass
 
 def transPhoto(input_path:str,output_path:str):
+    '''
+    转换单张图片
+    '''
     im = Image.open(input_path)
     im = im.convert("RGBA")
     re = Image.new("RGB",size=(im.size[0]*16,im.size[1]*16))
@@ -40,6 +43,9 @@ def transPhoto(input_path:str,output_path:str):
     blockim.close()
 
 def transVideo(input_path:str,output_path:str):
+    '''
+    转换视频
+    '''
     print("[TRANS MAIN]正在拆分帧")
     videoCapture=cv2.VideoCapture(input_path)
     fps = videoCapture.get(cv2.CAP_PROP_FPS)
@@ -65,7 +71,8 @@ def transVideo(input_path:str,output_path:str):
     print("[TRANS MAIN]等待所有线程完成...")
     for thread in tqdm(threads):
         thread.join()
-    
+
+    print("[TRANS MAIN]正在合并帧")
     subprocess.call(f"ffmpeg -loglevel quiet -r {fps} -f image2 -i ./frame/frame%06d.png -i \"{input_path}\" -c:v copy -map 0:v -map 1:a -vcodec libx264 -pix_fmt yuv420p \"{output_path}\"")
     print("[TRANS MAIN]回收空间中")
     del_file("./temp/")
